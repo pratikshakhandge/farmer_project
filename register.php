@@ -9,11 +9,16 @@ $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     $sql = "INSERT INTO users (username, password)
             VALUES ('$username', '$password')";
 
-    if($conn->query($sql) === TRUE){
-        echo "Registration Successful!";
-    } else {
-        echo "Error: " . $conn->error;
-    }
+   if($conn->query($sql) === TRUE){
+
+    echo "<script>
+            alert('Registration Successful!');
+            window.location='index.html';
+          </script>";
+
+} else {
+    echo "Error: " . $conn->error;
+}
 }
 ?>
 
