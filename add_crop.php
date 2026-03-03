@@ -1,36 +1,8 @@
 <?php
 session_start();
-include 'config.php';
-
-if (!isset($_SESSION['user_id'])) {
+if(!isset($_SESSION['user_id'])){
     header("Location: login.php");
-}
-
-if (isset($_POST['save_crop'])) {
-
-    $user_id = $_SESSION['user_id'];
-    $crop_name = $_POST['crop_name'];
-    $fertilizer = $_POST['fertilizer'];
-    $labor = $_POST['labor'];
-    $transport = $_POST['transport'];
-    $seeds = $_POST['seeds'];
-    $pesticide = $_POST['pesticide'];
-    $others = $_POST['others'];
-    $selling_price = $_POST['selling_price'];
-
-    $total_cost = $fertilizer + $labor + $transport + $seeds + $pesticide + $others;
-    $profit_loss = $selling_price - $total_cost;
-
-    $sql = "INSERT INTO crops 
-            (user_id, crop_name, fertilizer, labor, transport, seeds, pesticide, others, total_cost, selling_price, profit_loss)
-            VALUES 
-            ('$user_id', '$crop_name', '$fertilizer', '$labor', '$transport', '$seeds', '$pesticide', '$others', '$total_cost', '$selling_price', '$profit_loss')";
-
-    if ($conn->query($sql)) {
-        header("Location: view_crops.php");
-    } else {
-        echo "Error: " . $conn->error;
-    }
+    exit();
 }
 ?>
 
@@ -42,26 +14,32 @@ if (isset($_POST['save_crop'])) {
 </head>
 <body>
 
-<div class="home-container">
-    <h2>Add Crop Details 🌾</h2>
+<div class="container">
+    <h2>Add Crop Expense</h2>
 
-    <form method="POST">
-        <input type="text" name="crop_name" placeholder="Crop Name" required><br><br>
+    <form action="save_expense.php" method="POST">
 
-        <input type="number" name="fertilizer" placeholder="Fertilizer Cost" required><br><br>
-        <input type="number" name="labor" placeholder="Labor Cost" required><br><br>
-        <input type="number" name="transport" placeholder="Transport Cost" required><br><br>
-        <input type="number" name="seeds" placeholder="Seeds Cost" required><br><br>
-        <input type="number" name="pesticide" placeholder="Pesticide Cost" required><br><br>
-        <input type="number" name="others" placeholder="Other Cost" required><br><br>
+        <input type="text" name="crop" placeholder="Crop Name" required>
 
-        <input type="number" name="selling_price" placeholder="Selling Price" required><br><br>
+        <select name="category" required>
+            <option value="">Select Category</option>
+            <option>Fertilizer</option>
+            <option>Labor</option>
+            <option>Transport</option>
+            <option>Seeds</option>
+            <option>Other</option>
+        </select>
 
-        <button type="submit" name="save_crop" class="btn">Save Crop</button>
+        <input type="number" name="amount" placeholder_ctor="Amount" required>
+
+        <input type="text" name="note" placeholder="Note">
+
+        <button type="submit">Save Expense</button>
     </form>
 
     <br>
-    <a href="dashboard.php" class="btn">Back</a>
+    <a href="dashboard.php">Back to Dashboard</a>
+
 </div>
 
 </body>
