@@ -2,14 +2,15 @@
 include 'config.php';
 
 if(isset($_POST['register'])){
+
     $username = $_POST['username'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $password = $_POST['password'];
 
     $sql = "INSERT INTO users (username, password)
             VALUES ('$username', '$password')";
 
-    if($conn->query($sql)){
-        echo "<script>alert('Registration Successful'); window.location='login.php';</script>";
+    if($conn->query($sql) === TRUE){
+        echo "Registration Successful!";
     } else {
         echo "Error: " . $conn->error;
     }
@@ -20,19 +21,16 @@ if(isset($_POST['register'])){
 <html>
 <head>
     <title>Register</title>
-    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="home-container">
-    <h2>Create Account</h2>
+<h2>Register</h2>
 
-    <form method="POST">
-        <input type="text" name="username" placeholder="Username" required><br><br>
-        <input type="password" name="password" placeholder="Password" required><br><br>
-        <button type="submit" name="register" class="btn">Register</button>
-    </form>
-</div>
+<form method="POST">
+    <input type="text" name="username" placeholder="Username" required><br><br>
+    <input type="password" name="password" placeholder="Password" required><br><br>
+    <button type="submit" name="register">Register</button>
+</form>
 
 </body>
 </html>
