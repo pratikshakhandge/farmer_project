@@ -1,5 +1,7 @@
 <?php
 session_start();
+include "config.php";
+
 if(!isset($_SESSION['user_id'])){
     header("Location: login.php");
     exit();
@@ -30,7 +32,7 @@ if(!isset($_SESSION['user_id'])){
             <option>Other</option>
         </select>
 
-        <input type="number" name="amount" placeholder_ctor="Amount" required>
+        <input type="number" name="amount" placeholder="Amount" required>
 
         <input type="text" name="note" placeholder="Note">
 

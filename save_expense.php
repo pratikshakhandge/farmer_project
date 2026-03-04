@@ -5,7 +5,7 @@ include "config.php";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     if(!isset($_SESSION['user_id'])){
-        echo "Not logged in";
+        header("Location: login.php");
         exit();
     }
 
@@ -23,8 +23,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     if($conn->query($sql)){
         header("Location: dashboard.php");
+        exit();
     } else {
-        echo "Error saving data";
+        echo "Database Error: " . $conn->error;
     }
 }
 ?>
