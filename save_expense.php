@@ -2,30 +2,20 @@
 session_start();
 include "config.php";
 
-if($_SERVER["REQUEST_METHOD"] == "POST"){
+$user_id = $_SESSION['user_id'];
 
-    if(!isset($_SESSION['user_id'])){
-        header("Location: login.php");
-        exit();
-    }
+$crop = $_POST['crop'];
+$category = $_POST['category'];
+$amount = $_POST['amount'];
+$note = $_POST['note'];
+$date = date("Y-m-d");
 
-    $user_id = $_SESSION['user_id'];
+$sql = "INSERT INTO expenses (user_id, crop_name, category, amount, note, expense_date)
+VALUES ('$user_id','$crop','$category','$amount','$note','$date')";
 
-    $crop = $_POST['crop'] ?? '';
-    $category = $_POST['category'] ?? '';
-    $amount = $_POST['amount'] ?? 0;
-    $note = $_POST['note'] ?? '';
-
-    $date = date("Y-m-d");
-
-    $sql = "INSERT INTO expenses (user_id, crop_name, category, amount, note, expense_date)
-            VALUES ('$user_id','$crop','$category','$amount','$note','$date')";
-
-    if($conn->query($sql)){
-        header("Location: dashboard.php");
-        exit();
-    } else {
-        echo "Database Error: " . $conn->error;
-    }
+if($conn->query($sql)){
+    echo "success";
+}else{
+    echo "error";
 }
 ?>
