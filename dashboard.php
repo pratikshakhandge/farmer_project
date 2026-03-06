@@ -35,7 +35,11 @@ if(!isset($_SESSION['user_id'])){
 <p>See all your crop expenses and cost breakdown.</p>
 <a href="view_crops.php" class="btn">View Crops</a>
 </div>
-
+<div class="card">
+<h3>Profit Calculator 💰</h3>
+<p>Calculate your crop profit based on expense, production and selling price.</p>
+<a href="profit.php" class="btn">Open Calculator</a>
+</div>
 <div class="card">
 <h3>Logout</h3>
 <p>Securely logout from your account.</p>
