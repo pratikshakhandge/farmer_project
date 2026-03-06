@@ -11,22 +11,40 @@ if(!isset($_SESSION['user_id'])){
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+<title>Farmer Dashboard</title>
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<div class="home-container">
-    <h2>Welcome Farmer 🌾</h2>
+<div class="dashboard-container">
 
-<a href="add_crop.php" class="btn">Add New Crop</a>
-    <a href="view_crops.php" class="btn">View My Crops</a>
-    <a href="logout.php" class="btn">Logout</a>
+<h1>🌾 Farmer Digital Notebook</h1>
+<h2>Welcome Farmer</h2>
+
+<div class="card-container">
+
+<div class="card">
+<h3>Add Crop Entry</h3>
+<p>Add crop expenses like fertilizer, labor, seeds etc.</p>
+<a href="add_crop.php" class="btn">Add Crop</a>
 </div>
-<script>
-function showForm() {
-    document.getElementById("cropForm").style.display = "block";
-}
-</script>
+
+<div class="card">
+<h3>View Crop Records</h3>
+<p>See all your crop expenses and cost breakdown.</p>
+<a href="view_crops.php" class="btn">View Crops</a>
+</div>
+
+<div class="card">
+<h3>Logout</h3>
+<p>Securely logout from your account.</p>
+<a href="logout.php" class="btn logout">Logout</a>
+</div>
+
+</div>
+
+</div>
+
 </body>
 </html>

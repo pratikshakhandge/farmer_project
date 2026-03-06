@@ -1,7 +1,5 @@
 <?php
 session_start();
-include "config.php";
-
 if(!isset($_SESSION['user_id'])){
     header("Location: login.php");
     exit();
@@ -11,36 +9,46 @@ if(!isset($_SESSION['user_id'])){
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Add Crop</title>
-    <link rel="stylesheet" href="style.css">
+<title>Add Crop</title>
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <div class="container">
-    <h2>Add Crop Expense</h2>
 
-    <form action="save_expense.php" method="POST">
+<h2>Add Crop Expense</h2>
 
-        <input type="text" name="crop" placeholder="Crop Name" required>
+<form action="save_expense.php" method="POST">
 
-        <select name="category" required>
-            <option value="">Select Category</option>
-            <option>Fertilizer</option>
-            <option>Labor</option>
-            <option>Transport</option>
-            <option>Seeds</option>
-            <option>Other</option>
-        </select>
+<label>Select Crop</label>
+<select name="crop" required>
+<option value="">Select Crop</option>
+<option>Onion</option>
+<option>Tomato</option>
+<option>Green Chili</option>
+<option>Wheat</option>
+<option>Rice</option>
+<option>Sugarcane</option>
+<option>Potato</option>
+</select>
 
-        <input type="number" name="amount" placeholder="Amount" required>
+<label>Category</label>
+<select name="category" required>
+<option>Fertilizer</option>
+<option>Labor</option>
+<option>Transport</option>
+<option>Seeds</option>
+<option>Other</option>
+</select>
 
-        <input type="text" name="note" placeholder="Note">
+<input type="number" name="amount" placeholder="Amount" required>
 
-        <button type="submit">Save Expense</button>
-    </form>
+<input type="text" name="note" placeholder="Description">
 
-    <br>
-    <a href="dashboard.php">Back to Dashboard</a>
+<button type="submit">Save Expense</button>
+
+</form>
 
 </div>
 
