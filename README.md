@@ -1,96 +1,122 @@
-🌾 Farmer Profit Calculator
+# Farmer Management System
 
-A simple web application that helps farmers calculate the profit or loss from their crops by entering farming expenses and selling price.
-This project is designed to make financial tracking easier for farmers and students learning web development.
+A simple PHP + MySQL web app for farmer account management, expense tracking by crop, and basic profit calculation.
 
-📌 Project Overview
+## Features
 
-Farmers often spend money on seeds, fertilizers, labor, and transportation but do not always track their actual profit.
-This website allows users to:
+- User registration and login
+- Farmer dashboard with profile details
+- Add crop expense entries (category, amount, note)
+- View crop-wise expense history with totals
+- Profit calculator (selling price - total expense)
 
-Enter crop details
+## Tech Stack
 
-Record farming expenses
+- PHP (session-based auth, server-side logic)
+- MySQL (data storage)
+- HTML/CSS (UI)
+- Vanilla JavaScript (AJAX expense save + profit calculation)
+- XAMPP (Apache + MySQL recommended)
 
-Calculate total cost
+## Project Structure
 
-Calculate profit or loss automatically
-
-The goal is to provide a simple digital notebook for farmers to manage crop records.
-
-🚀 Features
-
-Add crop information
-
-Record expenses (seeds, fertilizer, labor, etc.)
-
-Automatic profit/loss calculation
-
-Simple and easy interface
-
-Works directly in the browser
-
-Beginner-friendly web project
-
-🛠️ Technologies Used
-
-HTML – Structure of the website
-
-CSS – Styling and layout
-
-JavaScript – Logic and calculations
-
-📂 Project Structure
+```text
 farmer_project/
-│
-├── index.html      # Main webpage
-├── style.css       # Styling file
-├── script.js       # Profit calculation logic
-└── README.md       # Project documentation
-▶️ How to Run the Project
+|-- index.html          # Login page
+|-- register.php        # New user registration
+|-- login.php           # Login handler
+|-- dashboard.php       # Main dashboard
+|-- profile.php         # User profile page
+|-- add_crop.php        # Add expense form
+|-- save_expense.php    # Expense insert endpoint
+|-- view_crops.php      # Crop expense records
+|-- profit.php          # Profit calculator page
+|-- logout.php          # Session logout
+|-- config.php          # Database connection
+|-- style.css           # Auth page styles
+|-- dashboard.css       # Dashboard/pages styles
+|-- image.png           # Dashboard image
+|-- farmer.png          # Login image
+`-- README.md
+```
 
-Clone the repository
+## Prerequisites
 
-git clone https://github.com/pratikshakhandge/farmer_project.git
+- XAMPP installed
+- Apache running
+- MySQL running
+- PHP 8.x (or compatible version included with XAMPP)
 
-Open the project folder
+## Database Setup
 
-Run the project
+1. Create a database named `farmer_db`.
+2. Run the SQL below:
 
-Simply open index.html in your browser.
+```sql
+CREATE DATABASE IF NOT EXISTS farmer_db;
+USE farmer_db;
 
-💡 Example Use
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    username VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    mobile VARCHAR(20) DEFAULT '',
+    address VARCHAR(255) DEFAULT '',
+    village VARCHAR(100) DEFAULT '',
+    district VARCHAR(100) DEFAULT '',
+    state VARCHAR(100) DEFAULT '',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
-Example inputs:
+CREATE TABLE IF NOT EXISTS expenses (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    crop_name VARCHAR(100) NOT NULL,
+    category VARCHAR(100) NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
+    note VARCHAR(255) DEFAULT '',
+    expense_date DATE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+```
 
-Crop: Wheat
+## Configure Connection
 
-Total Expense: ₹5000
+Update `config.php` if your MySQL settings differ:
 
-Selling Price: ₹7500
+```php
+$conn = new mysqli("localhost", "root", "", "farmer_db", 3307);
+```
 
-Result:
+Notes:
+- `3307` is currently used in this project.
+- Many XAMPP setups use `3306`.
 
-Profit = ₹2500
-🎯 Purpose of the Project
+## Run Locally (XAMPP)
 
-Help farmers track crop profit easily
+1. Place project in:
+   `C:\xampp\htdocs\farmer_project`
+2. Start Apache and MySQL from XAMPP Control Panel.
+3. Open:
+   `http://localhost/farmer_project/index.html`
+4. Register a user, then log in.
 
-Provide a simple financial calculator
+## Usage Flow
 
-Practice basic web development
+1. Create account on `register.php`.
+2. Log in from `index.html`.
+3. Add crop expenses from `add_crop.php`.
+4. Check grouped crop records in `view_crops.php`.
+5. Use `profit.php` to calculate profit/loss.
 
-Demonstrate a real-life problem solution
+## Security Notes
 
-👩‍💻 Author
+- Passwords are hashed with `password_hash()`.
+- Login verification uses `password_verify()`.
+- Input is escaped in output with `htmlspecialchars()` in key pages.
 
-Pratiksha Khandge
-Computer Engineering Student
+## License
 
-GitHub:
-https://github.com/pratikshakhandge
-
-📜 License
-
-This project is open source and available for educational purposes.
-
+This project is for educational use.
