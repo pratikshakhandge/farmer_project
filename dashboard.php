@@ -1,53 +1,62 @@
 <?php
 session_start();
-include 'config.php';
+include "config.php";
 
 if(!isset($_SESSION['user_id'])){
-    header("Location: login.php");
-    exit();
+header("Location: index.html");
+exit();
 }
+
+$user_id = (int)$_SESSION['user_id'];
+$farmer_name = "Farmer";
+
+$user_sql = "SELECT name FROM users WHERE id=$user_id LIMIT 1";
+$user_result = $conn->query($user_sql);
+if($user_result && $user_result->num_rows > 0){
+    $farmer = $user_result->fetch_assoc();
+    $farmer_name = $farmer["name"];
+}
+
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
 <title>Farmer Dashboard</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="dashboard.css">
 </head>
 
 <body>
 
-<div class="dashboard-container">
+<div class="dashboard">
+<aside class="sidebar">
 
-<h1>🌾 Farmer Digital Notebook</h1>
-<h2>Welcome Farmer</h2>
+<h2>Farmer Panel</h2>
 
-<div class="card-container">
+<ul>
+<li><a href="dashboard.php" class="active">Dashboard</a></li>
+<li><a href="profile.php">My Profile</a></li>
+<li><a href="add_crop.php">Add Expense</a></li>
+<li><a href="view_crops.php">View Crops</a></li>
+<li><a href="profit.php">Profit Calculator</a></li>
+<li><a href="logout.php">Logout</a></li>
+</ul>
 
-<div class="card">
-<h3>Add Crop Entry</h3>
-<p>Add crop expenses like fertilizer, labor, seeds etc.</p>
-<a href="add_crop.php" class="btn">Add Crop</a>
+</aside>
+
+<main class="main">
+<section class="hero">
+<div>
+<p class="hero-kicker">Dashboard</p>
+<h1>Welcome, <?php echo htmlspecialchars($farmer_name); ?></h1>
 </div>
+</section>
 
-<div class="card">
-<h3>View Crop Records</h3>
-<p>See all your crop expenses and cost breakdown.</p>
-<a href="view_crops.php" class="btn">View Crops</a>
-</div>
-<div class="card">
-<h3>Profit Calculator 💰</h3>
-<p>Calculate your crop profit based on expense, production and selling price.</p>
-<a href="profit.php" class="btn">Open Calculator</a>
-</div>
-<div class="card">
-<h3>Logout</h3>
-<p>Securely logout from your account.</p>
-<a href="logout.php" class="btn logout">Logout</a>
-</div>
+<section class="welcome-panel">
+<img src="image.png" alt="Farmer" class="farmer-image">
+</section>
 
-</div>
-
+</main>
 </div>
 
 </body>

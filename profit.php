@@ -1,117 +1,74 @@
 <?php
 session_start();
-include "config.php";
 
 if(!isset($_SESSION['user_id'])){
-    header("Location: login.php");
+    header("Location: index.html");
     exit();
 }
-
-$user_id = $_SESSION['user_id'];
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
 <title>Profit Calculator</title>
-<link rel="stylesheet" href="style.css">
-
-<style>
-
-.container{
-width:500px;
-margin:40px auto;
-background:white;
-padding:25px;
-border-radius:8px;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
-}
-
-input, select{
-width:100%;
-padding:10px;
-margin:10px 0;
-}
-
-button{
-width:100%;
-padding:10px;
-background:green;
-color:white;
-border:none;
-cursor:pointer;
-}
-
-.result{
-margin-top:20px;
-font-size:18px;
-font-weight:bold;
-text-align:center;
-}
-
-</style>
+<link rel="stylesheet" href="dashboard.css">
 </head>
 
 <body>
 
-<div class="container">
+<div class="sidebar">
+<h2>🌾 Farmer Panel</h2>
 
-<h2>Profit Calculator 💰</h2>
+<ul>
+<li><a href="dashboard.php">Dashboard</a></li>
+<li><a href="profile.php">My Profile</a></li>
+<li><a href="add_crop.php">Add Expense</a></li>
+<li><a href="view_crops.php">View Crops</a></li>
+<li><a href="profit.php">Profit Calculator</a></li>
+<li><a href="logout.php">Logout</a></li>
+</ul>
+</div>
 
-<label>Select Crop</label>
-<select id="crop">
-<option>Tomato</option>
-<option>Potato</option>
-<option>Onion</option>
-<option>Wheat</option>
-<option>Rice</option>
-<option>Sugarcane</option>
-</select>
+<div class="main">
+
+<h1>Profit Calculator</h1>
+
+<div class="form-card">
+<form id="profitForm">
+<label>Total Selling Price (₹)</label>
+<input type="number" id="sellingPrice" min="0" step="0.01" required>
 
 <label>Total Expense (₹)</label>
-<input type="number" id="expense">
+<input type="number" id="totalExpense" min="0" step="0.01" required>
 
-<label>Total Production (kg)</label>
-<input type="number" id="production">
+<button type="submit" class="save-btn">Calculate</button>
+</form>
 
-<label>Selling Price per kg (₹)</label>
-<input type="number" id="price">
-
-<button onclick="calculateProfit()">Calculate Profit</button>
-
-<div class="result" id="result"></div>
-
-<br>
-<a href="dashboard.php">⬅ Back to Dashboard</a>
+<div id="profitResult" style="margin-top:15px; font-weight:bold;"></div>
+</div>
 
 </div>
 
 <script>
-function calculateProfit() {
+document.getElementById("profitForm").addEventListener("submit", function(e){
+    e.preventDefault();
 
-let expense = parseFloat(document.getElementById("expense").value);
-let production = parseFloat(document.getElementById("production").value);
-let price = parseFloat(document.getElementById("price").value);
+    let sellingPrice = parseFloat(document.getElementById("sellingPrice").value) || 0;
+    let totalExpense = parseFloat(document.getElementById("totalExpense").value) || 0;
+    let finalAmount = sellingPrice - totalExpense;
+    let resultBox = document.getElementById("profitResult");
 
-let revenue = production * price;
-let profit = revenue - expense;
-
-let result = document.getElementById("result");
-
-if(profit > 0){
-    result.innerHTML = "Profit: ₹" + profit;
-    result.style.color = "green";
-}
-else if(profit < 0){
-    result.innerHTML = "Loss: ₹" + Math.abs(profit);
-    result.style.color = "red";
-}
-else{
-    result.innerHTML = "No Profit No Loss";
-    result.style.color = "orange";
-}
-
-}
+    if(finalAmount > 0){
+        resultBox.textContent = "Profit: ₹" + finalAmount.toFixed(2);
+        resultBox.style.color = "green";
+    }else if(finalAmount < 0){
+        resultBox.textContent = "Loss: ₹" + Math.abs(finalAmount).toFixed(2);
+        resultBox.style.color = "red";
+    }else{
+        resultBox.textContent = "No Profit, No Loss";
+        resultBox.style.color = "#333";
+    }
+});
 </script>
 
 </body>

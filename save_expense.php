@@ -2,18 +2,29 @@
 session_start();
 include "config.php";
 
-$user_id = $_SESSION['user_id'];
+if(!isset($_SESSION['user_id'])){
+    http_response_code(401);
+    echo "unauthorized";
+    exit();
+}
 
-$crop = $_POST['crop'];
-$category = $_POST['category'];
-$amount = $_POST['amount'];
-$note = $_POST['note'];
+$user_id = (int)$_SESSION['user_id'];
+
+$crop = trim($_POST['crop'] ?? "");
+$category = trim($_POST['category'] ?? "");
+$amount = (float)($_POST['amount'] ?? 0);
+$note = trim($_POST['note'] ?? "");
 $date = date("Y-m-d");
 
-$sql = "INSERT INTO expenses (user_id, crop_name, category, amount, note, expense_date)
-VALUES ('$user_id','$crop','$category','$amount','$note','$date')";
+if($crop === "" || $category === "" || $amount <= 0){
+    echo "error";
+    exit();
+}
 
-if($conn->query($sql)){
+$stmt = $conn->prepare("INSERT INTO expenses (user_id, crop_name, category, amount, note, expense_date) VALUES (?, ?, ?, ?, ?, ?)");
+$stmt->bind_param("issdss", $user_id, $crop, $category, $amount, $note, $date);
+
+if($stmt->execute()){
     echo "success";
 }else{
     echo "error";

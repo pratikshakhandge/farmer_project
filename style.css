@@ -131,3 +131,270 @@ cursor:pointer;
 .profit-form button:hover{
 background:#1b5e20;
 }
+
+/* Landing Page */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family: Arial, sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background-image:url('farmer.jpg');
+background-size:cover;
+background-position:center;
+}
+
+/* Dark overlay */
+
+body::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+z-index:0;
+pointer-events:none;
+}
+
+.login-container{
+position:relative;
+z-index:1;
+}
+
+.login-box{
+background:white;
+padding:40px;
+width:350px;
+border-radius:10px;
+box-shadow:0 10px 25px rgba(0,0,0,0.3);
+text-align:center;
+}
+
+.login-box h2{
+margin-bottom:20px;
+color:#2c3e50;
+}
+
+label{
+display:block;
+text-align:left;
+margin-top:10px;
+font-weight:bold;
+color:black;
+}
+
+input{
+width:100%;
+padding:10px;
+margin-top:5px;
+border:1px solid #ccc;
+border-radius:5px;
+}
+
+button{
+width:100%;
+padding:12px;
+margin-top:20px;
+background:#28a745;
+color:white;
+border:none;
+border-radius:25px;
+font-size:16px;
+cursor:pointer;
+}
+
+button:hover{
+background:#218838;
+}
+
+.register-text{
+margin-top:15px;
+font-size:14px;
+}
+
+.register-text a{
+color:#007bff;
+text-decoration:none;
+font-weight:bold;
+}
+/* HOME PAGE DESIGN */
+
+.main-container{
+display:flex;
+height:100vh;
+}
+
+/* LEFT IMAGE */
+.image-section{
+flex:1;
+background:#2e7d32;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.image-section img{
+width:70%;
+animation: float 4s ease-in-out infinite;
+}
+
+/* FLOAT ANIMATION */
+
+@keyframes float{
+0%{transform:translateY(0px);}
+50%{transform:translateY(-15px);}
+100%{transform:translateY(0px);}
+}
+
+/* LOGIN SECTION */
+
+.login-container{
+flex:1;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#f4f6f9;
+}
+
+.login-box{
+background:white;
+padding:40px;
+width:350px;
+border-radius:12px;
+box-shadow:0 10px 25px rgba(0,0,0,0.1);
+text-align:center;
+}
+
+.login-box h2{
+margin-bottom:5px;
+color:#2e7d32;
+}
+
+.subtitle{
+font-size:14px;
+color:#777;
+margin-bottom:25px;
+}
+
+.login-box input{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:1px solid #ccc;
+border-radius:6px;
+font-size:14px;
+}
+
+.login-box input:focus{
+border-color:#2e7d32;
+outline:none;
+}
+
+/* LOGIN BUTTON */
+
+.login-box button{
+width:100%;
+padding:12px;
+background:#2e7d32;
+color:white;
+border:none;
+border-radius:6px;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.login-box button:hover{
+background:#1b5e20;
+}
+
+/* REGISTER TEXT */
+
+.register-text{
+margin-top:15px;
+font-size:14px;
+}
+
+.register-text a{
+color:#2e7d32;
+font-weight:bold;
+text-decoration:none;
+}
+
+.register-text a:hover{
+text-decoration:underline;
+}
+
+/* REGISTER PAGE */
+
+.register-container{
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+background:#f4f6f9;
+position:relative;
+z-index:1;
+}
+
+.register-box{
+background:white;
+padding:40px;
+width:400px;
+border-radius:10px;
+box-shadow:0 10px 25px rgba(0,0,0,0.1);
+text-align:center;
+position:relative;
+z-index:1;
+}
+
+.register-box h2{
+color:#2e7d32;
+margin-bottom:20px;
+}
+
+.register-box input,
+.register-box textarea{
+width:100%;
+padding:10px;
+margin:8px 0;
+border:1px solid #ccc;
+border-radius:6px;
+}
+
+.register-box textarea{
+height:70px;
+}
+
+.register-box button{
+width:100%;
+padding:12px;
+background:#2e7d32;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+margin-top:10px;
+}
+
+.register-box button:hover{
+background:#1b5e20;
+}
+
+.login-link{
+margin-top:10px;
+}
+
+.login-link a{
+color:#2e7d32;
+font-weight:bold;
+text-decoration:none;
+}
